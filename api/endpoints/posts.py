@@ -34,7 +34,14 @@ def read_post(post_id: int, db: Session = Depends(get_db)):
 def update_post(updated_post: PostUpdate, db: Session = Depends(get_db)):
     cached_post = get_post_cache(updated_post.id)
     if cached_post:
-        return cached_post
+        cached_post.title = updated_post.title
+        cached_post.content = updated_post.content
+        db.commit()
+        db.refresh(cached_post)
+        return Response(
+            {'msg': 'successfully updated post'},
+            status_code=status.HTTP_200_OK
+        )
 
     post = db.query(Post).filter(Post.id == updated_post.id).first()
     if post:
