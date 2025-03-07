@@ -30,7 +30,7 @@ def read_post(post_id: int, db: Session = Depends(get_db)):
         set_post_cache(post)
     return post
 
-@router.put("/{post_id}", response_model=Response)
+@router.put("/", response_model=Response)
 def update_post(updated_post: PostUpdate, db: Session = Depends(get_db)):
     cached_post = get_post_cache(updated_post.id)
     if cached_post:
