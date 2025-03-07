@@ -21,5 +21,8 @@ services:
     depends_on:
       - db
       - redis
+    environment:
+      DATASOURCE_URL: db
+      REDIS_URL: redis
     ports:
       - "8000:8000"
