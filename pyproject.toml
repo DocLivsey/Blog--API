@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "blog-app"
+version = "0.1.0"
+description = "A FastAPI blog application"
+authors = ["DocLivsey"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.109.0"
+uvicorn = "^0.23.0"
+sqlalchemy = "^2.0.0"
+redis = "^5.0.0"
+alembic = "^1.12.0"
+pydantic = "^2.0.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
