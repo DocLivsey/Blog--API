@@ -9,7 +9,7 @@ class PostCreate(PostScheme):
     pass
 
 class PostUpdate(PostScheme):
-    pass
+    id: int
 
 class PostResponse(PostScheme):
     id: int
