@@ -10,4 +10,4 @@ class Settings(BaseSettings):
 settings = Settings()
 
 if 'postgresql://' not in settings.DATASOURCE_URL:
-    settings.DATASOURCE_URL = f'postgresql://admin:password@{settings.DATASOURCE_URL}:5432/blog'
+    settings.DATASOURCE_URL = f'postgresql://admin:password@{settings.DATASOURCE_URL}/blog'
