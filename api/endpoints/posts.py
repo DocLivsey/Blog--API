@@ -17,8 +17,8 @@ def create_post(post: PostCreate, db: Session = Depends(get_db)):
     return db_post.as_response()
 
 @router.get("/{post_id}", response_model=PostResponse)
-def read_post(post_id: int, db: Session = Depends(get_db)):
-    cached_post = get_post_cache(post_id)
+async def read_post(post_id: int, db: Session = Depends(get_db)):
+    cached_post = await get_post_cache(post_id)
     if cached_post:
         return cached_post
 
@@ -28,8 +28,8 @@ def read_post(post_id: int, db: Session = Depends(get_db)):
     return post.as_response()
 
 @router.put("/", response_model=PostResponse)
-def update_post(updated_post: PostUpdate, db: Session = Depends(get_db)):
-    cached_post = get_post_cache(updated_post.id)
+async def update_post(updated_post: PostUpdate, db: Session = Depends(get_db)):
+    cached_post = await get_post_cache(updated_post.id)
     if cached_post:
         cached_post.title = updated_post.title
         cached_post.content = updated_post.content

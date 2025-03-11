@@ -1,5 +1,5 @@
-import redis
 import json
+import redis.asyncio as redis
 from core.config import settings
 from schemas.post import PostResponse
 
