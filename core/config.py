@@ -11,3 +11,6 @@ settings = Settings()
 
 if 'postgresql://' not in settings.DATASOURCE_URL:
     settings.DATASOURCE_URL = f'postgresql://admin:password@{settings.DATASOURCE_URL}/blog'
+
+if 'redis://' not in settings.REDIS_URL:
+    settings.REDIS_URL = f'redis://{settings.REDIS_URL}'
