@@ -7,17 +7,14 @@ from services.cache import get_post_cache, set_post_cache
 
 router = APIRouter()
 
-@router.post("/", response_model=Response)
+@router.post("/", response_model=PostResponse)
 def create_post(post: PostCreate, db: Session = Depends(get_db)):
     db_post = Post(title=post.title, content=post.content)
     db.add(db_post)
     db.commit()
     db.refresh(db_post)
     set_post_cache(db_post)
-    return Response(
-        {'msg': 'successfully created post'},
-        status_code=status.HTTP_201_CREATED
-    )
+    return post
 
 @router.get("/{post_id}", response_model=PostResponse)
 def read_post(post_id: int, db: Session = Depends(get_db)):
@@ -30,7 +27,7 @@ def read_post(post_id: int, db: Session = Depends(get_db)):
         set_post_cache(post)
     return post
 
-@router.put("/", response_model=Response)
+@router.put("/", response_model=PostResponse)
 def update_post(updated_post: PostUpdate, db: Session = Depends(get_db)):
     cached_post = get_post_cache(updated_post.id)
     if cached_post:
@@ -38,10 +35,7 @@ def update_post(updated_post: PostUpdate, db: Session = Depends(get_db)):
         cached_post.content = updated_post.content
         db.commit()
         db.refresh(cached_post)
-        return Response(
-            {'msg': 'successfully updated post'},
-            status_code=status.HTTP_200_OK
-        )
+        return cached_post
 
     post = db.query(Post).filter(Post.id == updated_post.id).first()
     if post:
@@ -51,7 +45,4 @@ def update_post(updated_post: PostUpdate, db: Session = Depends(get_db)):
     post.content = updated_post.content
     db.commit()
     db.refresh(post)
-    return Response(
-        {'msg': 'successfully updated post'},
-        status_code=status.HTTP_200_OK
-    )
+    return post
