@@ -14,7 +14,7 @@ def create_post(post: PostCreate, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(db_post)
     set_post_cache(db_post)
-    return post
+    return db_post.as_response()
 
 @router.get("/{post_id}", response_model=PostResponse)
 def read_post(post_id: int, db: Session = Depends(get_db)):
@@ -25,7 +25,7 @@ def read_post(post_id: int, db: Session = Depends(get_db)):
     post = db.query(Post).filter(Post.id == post_id).first()
     if post:
         set_post_cache(post)
-    return post
+    return post.as_response()
 
 @router.put("/", response_model=PostResponse)
 def update_post(updated_post: PostUpdate, db: Session = Depends(get_db)):
@@ -45,4 +45,4 @@ def update_post(updated_post: PostUpdate, db: Session = Depends(get_db)):
     post.content = updated_post.content
     db.commit()
     db.refresh(post)
-    return post
+    return post.as_response()
