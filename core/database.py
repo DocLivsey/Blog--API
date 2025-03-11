@@ -4,7 +4,11 @@ from sqlalchemy.orm import sessionmaker
 
 from core.config import settings
 
-engine = create_engine(settings.DATASOURCE_URL, connect_args={"check_same_thread": False})
+engine = create_engine(
+    settings.DATASOURCE_URL,
+    max_overflow=20,
+    pool_size=10,
+)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
