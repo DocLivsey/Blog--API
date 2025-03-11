@@ -1,6 +1,7 @@
-from fastapi import FastAPI
+from api.main import create_app
+from api.routes.posts import router as posts_router
 
-app = FastAPI()
+app = create_app(posts_router)
 
 
 @app.get("/")
