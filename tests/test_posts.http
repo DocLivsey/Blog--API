@@ -1,0 +1,21 @@
+### POST requests to posts endpoints
+POST http://127.0.0.1:8000/api/v1/posts/
+Accept: application/json
+
+{
+"title": "test post",
+"content": "test testing for testing tests"
+}
+
+### GET requests to posts endpoints
+GET http://127.0.0.1:8000/api/v1/posts/1
+Accept: application/json
+
+### PUT requests to posts endpoints
+PUT http://127.0.0.1:8000/api/v1/posts/
+Accept: application/json
+
+{
+"title": "changed test post",
+"content": "test testing for testing tests"
+}
